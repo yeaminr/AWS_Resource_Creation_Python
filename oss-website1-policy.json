@@ -8,5 +8,4 @@
             "Resource": "arn:aws:s3:::oss-website1"
         }
     ]
-	}
 }
