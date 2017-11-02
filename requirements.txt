@@ -1,0 +1,27 @@
+Requirements:
+1. Please run the script after making executable in a Linux server (preferably Amazon Linux AMI having AWS CLI installed) using below command:
+
+./aws_resource_creation_exercise t2.micro
+
+Please provide valid EC2 instance type as argument of the sript call, otherwise the script will exit (Ive put a few instance types to check, not all). 
+
+2. I created a new EC2 instance (t2.micro) using AWS console just to write, test and run the Bash script aws_resource_creation_exercise.sh.
+
+3. I also created a new IAM role using AWS console, named the role as EC2_Superman_Role and assigned the super admin policy AdministratorAccess just to make it simple for the EC2 instance (from where Im running the Bash script) to be able to access all AWS resources.  
+
+4. Its important to set the region in aws configuration command in this dev EC2 instance. I used Sydney region (ap-southeast-2).
+
+[root@ip-172-31-3-244 ec2-user]# aws configure
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: ap-southeast-2
+Default output format [None]: 
+[root@ip-172-31-3-244 ec2-user]# 
+
+5. Please copy the oss-website1-policy.json file into the same directory where youre running the aws_resource_creation_exercise.sh script.
+ 
+6. I assume you have a key pair named MySydneyKeyPair to SSH into the EC2 instances and mentioned it while creating the ASG Launch Config. Assumed you havd a role named S3-Admin-Access in IAM roles as well with AmazonS3FullAccess policy.  
+
+7. It is assumed that under the default VPC 2 security groups are already created: ec2SecurityGroup (id: sg-7da13d1b) and rdsSecurityGroup (id: sg-885bc7ee).
+
+
