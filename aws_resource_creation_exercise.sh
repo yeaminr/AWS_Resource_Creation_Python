@@ -56,7 +56,7 @@ aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnl
 
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --group-name backendDev
 
-aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/oss-web-front-policy --group-name frontendDev
+aws iam attach-group-policy --policy-arn arn:aws:iam::`echo $2`:policy/oss-web-front-policy --group-name frontendDev
 
 echo "Attaching IAM Groups Policies ...."
 sleep 1
