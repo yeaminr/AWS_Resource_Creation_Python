@@ -1,9 +1,9 @@
 Requirements:
-1. Please run the script after making executable in a Linux server (preferably Amazon Linux AMI having AWS CLI installed) using below command:
+1. Please run the script after making executable in a Linux server (preferably Amazon Linux AMI having AWS CLI installed) using below command (example):
 
-./aws_resource_creation_exercise t2.micro
+./aws_resource_creation_exercise t2.micro 833541770489
 
-Please provide valid EC2 instance type as argument of the sript call, otherwise the script will exit (Ive put a few instance types to check, not all). 
+Please provide valid EC2 instance type as argument 1 and your AWS account id as argument 2 while the sript call, otherwise the script will exit (Ive put only a few instance types to check, not all). 
 
 2. I created a new EC2 instance (t2.micro) using AWS console just to write, test and run the Bash script aws_resource_creation_exercise.sh.
 
