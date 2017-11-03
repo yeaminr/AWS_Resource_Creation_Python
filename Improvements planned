@@ -1,0 +1,14 @@
+1. Add more error handling mechanism
+2. Reduce dependencies further:
+  a) Create IAM role for EC2 to access S3 using the script itself.
+  b) Create Security groups using the script itself (take VPC ID as 3rd argument input)
+3. Improve further detail inline documentation (like explaining the argument list of each AWS CLI command)
+4. Include all EC2 Instance type for error checking of argument 1. 
+.
+.
+.
+
+
+
+
+
