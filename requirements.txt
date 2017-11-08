@@ -23,5 +23,3 @@ Default output format [None]:
 6. I assume you have a key pair named MySydneyKeyPair to SSH into the EC2 instances and mentioned it while creating the ASG Launch Config. Assumed you havd a role named S3-Admin-Access in IAM roles as well with AmazonS3FullAccess policy.  
 
 7. It is assumed that under the default VPC 2 security groups are already created: ec2SecurityGroup (id: sg-7da13d1b) and rdsSecurityGroup (id: sg-885bc7ee).
-
-
