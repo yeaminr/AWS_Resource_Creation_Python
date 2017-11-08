@@ -3,8 +3,9 @@
 #Script Name: aws_resource_creation_exercise.sh
 #Author: Yeamin Rajeev (yeamin.rajeev@gmail.com)
 #Version: 2.0
-#Description: This Bash script creates a number of AWS resources using the AWS CLI run on Linux. The version 2.0 adds error handling by using the Bash exit status for each
-#             command and exits the script if any error occurs. Further improvement of rollback is planned based on this error handling mechanism.
+#Description: This Bash script creates a number of AWS resources using the AWS CLI run on Linux. The version 2.0 adds error 
+#             handling by using the Bash exit status for each command and exits the script if any error occurs. Further 
+#             improvement of rollback is planned based on this error handling mechanism.
 #Dependencies: Please check the requirements.txt file for details.
 
 #### Below variables are used for the command to  allow EC2 SG to access RDS SG
@@ -75,7 +76,8 @@ fi
 (( count++ ))
 
 ######
-###### The below block of code creates a customized IAM policy for Front End Developers to have full access on website S3 bucket
+###### The below block of code creates a customized IAM policy for Front End Developers to have full access on a website 
+###### S3 bucket
 ######
 
 aws iam create-policy --policy-name oss-web-front-policy --policy-document file://oss-website1-policy.json
@@ -130,7 +132,9 @@ fi
 ###### The below block of code creates a Launch Configuration
 ######
 
-aws autoscaling create-launch-configuration --launch-configuration-name yeaminOSS-launch-config --key-name MySydneyKeyPair --security-groups ec2SecurityGroup --iam-instance-profile `echo $ec2_IAM_Role` --image-id ami-8536d6e7 --instance-type `echo $1`
+aws autoscaling create-launch-configuration --launch-configuration-name yeaminOSS-launch-config --key-name \ 
+MySydneyKeyPair --security-groups ec2SecurityGroup --iam-instance-profile `echo $ec2_IAM_Role` --image-id ami-8536d6e7 \
+--instance-type `echo $1`
 exit_status=`echo $?`
 if [ $exit_status -eq 0 ]; then
        echo "Creating Launch Configuration...."
@@ -145,7 +149,8 @@ fi
 ###### The below block of code creates an Auto Scaling Group
 ######
 
-aws autoscaling create-auto-scaling-group --auto-scaling-group-name yeaminOss-ASG --launch-configuration-name yeaminOSS-launch-config --min-size 1 --max-size 3 --availability-zones ap-southeast-2a ap-southeast-2b --tags ResourceId=yeaminOss-ASG,ResourceType=auto-scaling-group,Key=Name,Value=yeaminOss-ASG
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name yeaminOss-ASG --launch-configuration-name yeaminOSS-launch-config \
+--min-size 1 --max-size 3 --availability-zones ap-southeast-2a ap-southeast-2b --tags ResourceId=yeaminOss-ASG,ResourceType=auto-scaling-group,Key=Name,Value=yeaminOss-ASG
 exit_status=`echo $?`
 if [ $exit_status -eq 0 ]; then
 	echo "Creating Auto Scaling Group...."
@@ -160,7 +165,8 @@ fi
 ###### The below block of code puts 2 Auto Scaling Policies (simple) into the Autoscaling Group
 ######
 
-aws autoscaling put-scaling-policy --auto-scaling-group-name yeaminOss-ASG --policy-name simpleScaleUp --scaling-adjustment 1 --adjustment-type ChangeInCapacity --cooldown 60
+aws autoscaling put-scaling-policy --auto-scaling-group-name yeaminOss-ASG --policy-name simpleScaleUp --scaling-adjustment 1 \
+--adjustment-type ChangeInCapacity --cooldown 60
 exit_status=`echo $?`
 if [ $exit_status -eq 0 ]; then
         echo "Putting Auto Scaling Policy...."
@@ -171,7 +177,8 @@ else
 fi
 (( count++ ))
 
-aws autoscaling put-scaling-policy --auto-scaling-group-name yeaminOss-ASG --policy-name simpleScaleDown --scaling-adjustment -1 --adjustment-type ChangeInCapacity --cooldown 60
+aws autoscaling put-scaling-policy --auto-scaling-group-name yeaminOss-ASG --policy-name simpleScaleDown --scaling-adjustment -1 \
+--adjustment-type ChangeInCapacity --cooldown 60
 exit_status=`echo $?`
 if [ $exit_status -eq 0 ]; then
         echo "Putting Auto Scaling Policy...."
@@ -212,7 +219,8 @@ fi
 ###### The below block of code creates an RDS MySQL database
 ######
 
-aws rds create-db-instance --db-name yeaminoss --db-instance-identifier yeaminoss --allocated-storage 10 --db-instance-class db.t2.small --engine mysql --master-username yeamin --master-user-password yeamin123 --vpc-security-group-ids sg-885bc7ee
+aws rds create-db-instance --db-name yeaminoss --db-instance-identifier yeaminoss --allocated-storage 10 --db-instance-class db.t2.small \
+--engine mysql --master-username yeamin --master-user-password yeamin123 --vpc-security-group-ids sg-885bc7ee
 exit_status=`echo $?`
 if [ $exit_status -eq 0 ]; then
         echo "Creating MySQL RDS Instance ...."
@@ -233,7 +241,7 @@ if [ $exit_status -eq 0 ]; then
         echo "Allowing Ingress traffic in RDS SG for port 3306...."
         sleep 3
 else
-        echo "There was an error, please check the CLI command create-bucket. Exiting...."
+        echo "There was an error, please check the CLI command authorize-security-group-ingress. Exiting...."
        exit
 fi
 (( count++ ))
