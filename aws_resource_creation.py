@@ -89,7 +89,6 @@ asg_client = boto3.client('autoscaling')
 # The below block of code creates a Launch Configuration
 
 response = asg_client.create_launch_configuration(
-    KeyName='MySydneyKeyPair',
     ImageId='ami-8536d6e7',
     InstanceType=instance_type,
     LaunchConfigurationName='yeamin-launch-config',
