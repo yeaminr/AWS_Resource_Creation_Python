@@ -85,10 +85,23 @@ else:
      	print ("Successfully Allowed port 3306 from ec2-sg to rds-sg.")
 time.sleep(1)
 
+#The below block of code creates a Key Pair
+
+response = ec2_client.create_key_pair(
+    KeyName='yeamin-key-pair',
+)
+time.sleep(1)
+
+fileObject = open ("yeamin-key-pair.pem", "w+")
+fileObject.write (response['KeyMaterial'])
+fileObject.close()
+time.sleep(1)
+
 asg_client = boto3.client('autoscaling')
 # The below block of code creates a Launch Configuration
 
 response = asg_client.create_launch_configuration(
+    KeyName='yeamin-key-pair',
     ImageId='ami-8536d6e7',
     InstanceType=instance_type,
     LaunchConfigurationName='yeamin-launch-config',
